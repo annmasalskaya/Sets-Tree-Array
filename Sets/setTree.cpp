@@ -96,6 +96,19 @@ void Tree::clearTreeNode()
     clearTreeNode(root);
 }
 
+////////////////////////////////
+
+void Tree::insertElementVirt(int value)
+{
+    insertNode(root, value);
+}
+
+bool Tree::findElementVirt(int value)
+{
+    if(findElement(root,value)) return true;
+    else return false;
+}
+
 
 //////////////////////////////////////////// вспомогательные функции (функции - утилиты)
 

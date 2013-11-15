@@ -26,31 +26,31 @@ SetArray::~SetArray()
 //////////////////////////////////
 
 
-void SetArray::insertElement(int value)
+void SetArray::insertElementVirt(int value)
 {
-    insertElementA(array,length,value);
+    insertElement(value);
 }
 
-bool SetArray::findElement(int value)
+bool SetArray::findElementVirt(int value)
 {
-    if(findElement(array,value)) return true;
+    if(findElement(value)) return true;
     else return false;
 }
 
-void SetArray::insertElementA(int *&ptr,int &size,int value)
+void SetArray::insertElement(int value)
 {
-      int *temp=new int [size];;
-      for(int i = 0; i < size; i++)
+      int *temp=new int [length];;
+      for(int i = 0; i < length; i++)
       temp[i]=array[i];
-      array=new int [size+1];
-      for(int i = 0; i < size; i++)
+      array=new int [length+1];
+      for(int i = 0; i < length; i++)
       array[i]=temp[i];
-      array[size]=value;
-      size++;
+      array[length]=value;
+      length++;
 
 }
 
-bool SetArray::findElement(int *ptr,int value)
+bool SetArray::findElement(int value)
 {
     int k=0;
     for( int i=0; i<length; i++)

@@ -5,16 +5,13 @@ struct TreeNode;
 
 class NVI
 {
-    virtual void insertElement(int)=0; // вставка элемента
-    virtual bool findElement(int)=0; // поиск на наличие элемента
-
+protected:
+    virtual void insertElementVirt(int)=0;
+    virtual bool findElementVirt(int)=0;
 public:
-    void insertNode(TreeNode*& ,int);
-    bool findElement(TreeNode* ,int);
 
-    void insertElementA(int *& ,int&,int);
-    bool findElementA(int* ,int);
-
+    void insertElement(int); // вставка элемента
+    bool findElement(int); // поиск на наличие элемента
 
 };
 

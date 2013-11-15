@@ -4,7 +4,7 @@
 
 class Tree: public NVI
 {
-  struct TreeNode
+    struct TreeNode
     {
         int data;
         TreeNode *left;
@@ -32,9 +32,12 @@ public:
     void clearTreeNode();
     void outputTree(int);
 
- protected:
+private:
 
-     // вспомогательные функции
+
+    void insertElementVirt(int);
+    bool findElementVirt(int);
+
     void insertNode(TreeNode*& ,int);
     bool findElement(TreeNode* ,int);
     void clearTreeNode(TreeNode*&);

@@ -30,8 +30,8 @@ public:
 
 private:
 
-    void insertElementA(int*& ,int&, int); // добавить узел в дерево
-    bool findElement(int* ,int);
+    void insertElementVirt(int);
+    bool findElementVirt(int);
 
 };
 

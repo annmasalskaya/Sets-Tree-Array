@@ -1,28 +1,15 @@
 #include "set_nvi.h"
 
-// для дерева
 
-void NVI::insertNode(TreeNode*& node ,int value)
+void NVI::insertElement(int value)
 {
-    insertElement(value);
-}
-bool NVI::findElement(TreeNode* node ,int value)
-{
-    bool k=findElement(value);
-    return k;
-}
-
-////////////////////////////////////////////
-// для массива
-
-void NVI::insertElementA(int *&ar ,int &size,int value)
-{
-    insertElement(value);
+    insertElementVirt(value);
 
 }
-bool NVI::findElementA(int *ar ,int value)
+bool NVI::findElement(int value)
 {
-    bool k=findElement(value);
+
+    bool k=findElementVirt(value);
     return k;
 
 }
