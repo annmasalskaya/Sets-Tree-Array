@@ -7,13 +7,13 @@ using namespace std;
 int main()
 {
 
-    SetArray a(5);
+    /*SetArray a(5);
     cin >> a;
     cout<<endl;
     for(ArrayIterator it = a.begin(); it!=a.end(); it++)
             cout << *it << " ";
+    */
 
-    /*
     Tree tree1;
     ifstream fin("input");
     short value;
@@ -26,7 +26,11 @@ int main()
     cout<<"The tree 1 : "<<endl;
     tree1.outputTree(0);
     cout<<endl<<endl;
-    cout<<"The tree 2 : "<<endl;
+    for(TreeIterator it = tree1.begin(); it!=tree1.end(); it++)
+        cout << *it << " ";
+    tree1.insertElement(100) ;
+
+    /*cout<<"The tree 2 : "<<endl;
     Tree tree2;
     for( int i=3; i<7; i++)
     {
@@ -53,8 +57,8 @@ int main()
     (tree1-tree2).outputTree(0);
     cout<<"Разность 2 -1 : "<<endl;
     cout<<"___________________________"<<endl;
-    (tree2-tree1).outputTree(0);
     */
 
     return 0;
 }
+

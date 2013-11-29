@@ -2,6 +2,67 @@
 #include <iostream>
 using namespace std;
 
+// TreeIterator
+
+TreeIterator::TreeIterator():
+    owner(0), current(0)
+{}
+
+TreeIterator::TreeIterator(Tree *own, void *pointer):
+    owner(own), current(pointer)
+{}
+
+TreeIterator::~TreeIterator()
+{
+    owner = 0;
+    current = 0;
+}
+
+int& TreeIterator::operator*()
+{
+    return owner->asterisc(current);
+}
+
+TreeIterator TreeIterator::operator++()
+{
+    if(owner)
+        owner->next(current);
+
+    return *this;
+}
+
+TreeIterator TreeIterator::operator++(int)
+{
+    TreeIterator result(*this);
+    ++(*this);
+    return result;
+}
+
+/*TreeIterator TreeIterator::operator--()
+{
+    owner->previous(current);
+    return *this;
+}
+
+TreeIterator TreeIterator::operator--(int)
+{
+    TreeIterator result(*this);
+    --(*this);
+    return result;
+}
+*/
+bool TreeIterator::operator==(const TreeIterator &other)
+{
+    return owner == other.owner && current== other.current;
+}
+
+bool TreeIterator::operator!=(const TreeIterator &other)
+{
+    return !(*this==other);
+}
+
+//  Tree
+
 Tree::Tree():
     root(0)
 {}
@@ -184,8 +245,8 @@ Tree Tree::intersectTrees(Tree &tree,TreeNode *ptr)
     {
         intersectTrees(tree,ptr->left);
         if( findElement(root,ptr->data))
-            insertNode(tree.root,ptr->data);   // так как делался обход дерева, то
-        intersectTrees(tree,ptr->right);  //  в итоге объединения получается остортированное дерево
+            insertNode(tree.root,ptr->data);
+        intersectTrees(tree,ptr->right);
     }
     return tree;
 
@@ -204,7 +265,7 @@ Tree Tree::differenceTrees(Tree &tree, TreeNode *other,TreeNode *ptr)
 
 void Tree::outputTree(int level)
 {
-   outputTree(root,level);
+    outputTree(root,level);
 
 }
 void Tree::outputTree(TreeNode *ptr,int level)
@@ -219,4 +280,80 @@ void Tree::outputTree(TreeNode *ptr,int level)
         outputTree(ptr->right,level+1);
     }
 
+}
+
+//------------------
+
+Tree::TreeNode* Tree::findParent(TreeNode* pointer)
+{
+    if(pointer == root) return 0;
+    TreeNode *current = root;
+    while(current->left!= pointer && current->right!= pointer)
+        current = pointer->data < current->data ? current->left : current->right;
+    return current;
+}
+
+int& Tree::asterisc(void *ar)
+{
+    return asteriscImpl(ar);
+}
+
+void Tree::next(void *&ar)
+{
+    nextImpl(ar);
+}
+
+TreeIterator Tree::begin()
+{
+    return TreeIterator(this, beginImpl());
+}
+
+TreeIterator Tree::end()
+{
+    return TreeIterator(this, 0);
+}
+
+int &Tree::asteriscImpl(void *pointer)
+{
+    return ((TreeNode *)pointer)->data;
+}
+
+void *Tree::beginImpl()
+{
+    TreeNode *current=root;
+    if(current)
+        while(current->left)
+            current = current->left;
+
+    return (void*)current;
+}
+
+void Tree::nextImpl(void *&pointer)
+{
+    TreeNode *current = (TreeNode *)pointer,*parent;
+    if(current)
+    {
+        if(current->right)
+        {
+            current = current->right;
+
+            while(current->left)
+                current = current->left;
+        }
+        else
+        {
+            parent=findParent(current);
+            while(parent && current == parent->right)
+            {
+                current = parent;
+                parent=findParent(parent);
+            }
+            if(!findParent(current))
+                current = 0;
+            else
+                current = findParent(current);
+        }
+
+        pointer = (void *)current;
+    }
 }

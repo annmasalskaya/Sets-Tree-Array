@@ -2,6 +2,8 @@
 #define SETTREE_H
 #include "set_nvi.h"
 
+class TreeIterator;
+
 class Tree: public NVI
 {
     struct TreeNode
@@ -18,7 +20,7 @@ class Tree: public NVI
     }*root;
 
 public:
-
+    friend class TreeIterator;
     Tree();
     ~Tree();
     Tree (const Tree &);
@@ -32,8 +34,17 @@ public:
     void clearTreeNode();
     void outputTree(int);
 
+    TreeIterator begin();
+    TreeIterator end();
 private:
 
+    int &asterisc(void *);
+    int &asteriscImpl(void *);
+    void next(void *&);
+    void nextImpl(void *&);
+    void *beginImpl();
+
+    TreeNode *findParent(TreeNode*);
 
     void insertElementVirt(int);
     bool findElementVirt(int);
@@ -50,6 +61,27 @@ private:
 
 
 };
+
+class TreeIterator
+{
+public:
+    friend class Tree;
+    TreeIterator();
+    ~TreeIterator();
+
+    int& operator * ();
+    TreeIterator operator ++ ();
+    TreeIterator operator ++ (int);
+    //TreeIterator operator -- ();
+    //TreeIterator operator -- (int);
+    bool operator == (const TreeIterator&);
+    bool operator !=(const TreeIterator &);
+private:
+    Tree *owner;
+    void* current;
+    TreeIterator(Tree *, void *);
+};
+
 
 
 
